@@ -15,8 +15,7 @@ class CreatePersonnelTable extends Migration
     {
         Schema::create('personnel', function (Blueprint $table) {
             $table->id();
-            $table->integer('role_id');
-            $table->foreing('role_id')->references('id')->on('roles');
+            $table->integer('employee_role_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('username');
