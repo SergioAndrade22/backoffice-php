@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
                 ItemSeeder::class,
                 TableSeeder::class,
                 OrderSeeder::class,
-                PersonnelSeeder::class,
+                EmployeeSeeder::class,
                 ItemOrderSeeder::class,
             ]
         );
