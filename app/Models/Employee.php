@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Personnel extends Model
+class Employee extends Model
 {
     public const ROLES = [
         1 => 'waiter',

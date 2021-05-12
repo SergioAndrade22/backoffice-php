@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Personnel;
+use App\Models\Employee;
 
 class PersonnelSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class PersonnelSeeder extends Seeder
         $employeeSurname = ['AA', 'AA', 'AA', 'AA', 'AA'];
         $employeeUsername = ['pepe', 'luis', 'carlos', 'daina', 'lucía'];
         for ($i = 0; $i < 5; $i++){
-            Personnel::create(
+            Employee::create(
                 array(
                     'employee_role_id' => $employeeRole[$i],
                     'first_name' => $employeeName[$i],
