@@ -17,7 +17,7 @@ class EmployeeSeeder extends Seeder
         $employeeRole = [3, 1, 1, 2, 1];
         $employeeName = ['Pepe', 'Luis', 'Carlos', 'Daina', 'Lucía'];
         $employeeSurname = ['AA', 'AA', 'AA', 'AA', 'AA'];
-        $employeeUsername = ['pepe', 'luis', 'carlos', 'daina', 'lucía'];
+        $employeeUsername = ['pepe', 'luis', 'carlos', 'daina', 'lucia'];
         for ($i = 0; $i < 5; $i++){
             Employee::create(
                 array(
