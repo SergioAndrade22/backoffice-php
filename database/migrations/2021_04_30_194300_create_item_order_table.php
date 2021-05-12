@@ -14,11 +14,11 @@ class CreateItemOrderTable extends Migration
     public function up()
     {
         Schema::create('item_order', function (Blueprint $table) {
-            $table->id();
             $table->integer('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->integer('table_id');
-            $table->foreign('table_id')->references('id')->on('tables');
+            $table->integer('item_id');
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->primary(['order_id', 'item_id']);
             $table->timestamps();
         });
     }

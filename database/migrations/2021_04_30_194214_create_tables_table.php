@@ -15,8 +15,6 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->integer('personnel_id');
-            $table->foreign('personnel_id')->references('id')->on('personnel');
             $table->timestamps();
         });
     }
