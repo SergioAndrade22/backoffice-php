@@ -8,7 +8,7 @@
     <div class="flex items-center justify-center">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
             @foreach ($items as $item)
-            <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
+            <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl text-center justify-center">
                 <div class="mt-8">
                     <p class="text-xl font-semibold my-2">{{$item->name}}</p>
 
@@ -20,26 +20,24 @@
                          <p>{{$item->cuisine}}</p> 
                     </div>
 
-                    <div class="flex flex-col items-center justify-center">
-                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                             <p>Vegetarian: {{$item->is_vege ? 'Yes' : 'No'}}</p> 
-                        </div>
-    
-                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                            <p>Vegan: {{$item->is_vegan ? 'Yes' : 'No'}}</p> 
-                        </div>
-    
-                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                            <p>Coeliac: {{$item->is_coeliac ? 'Yes' : 'No'}}</p> 
-                        </div>
-    
-                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                            <p>Alcohol: {{$item->has_alcohol ? 'Yes' : 'No'}}</p> 
-                        </div>
-    
-                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                            <p>Cost: {{$item->cost}}</p> 
-                        </div>
+                    <div class="flex space-x-2 text-gray-900 text-sm my-3 w-full border-b-2 justify-center">
+                            <p>Vegetarian: {{$item->is_vege ? 'Yes' : 'No'}}</p> 
+                    </div>
+
+                    <div class="flex space-x-2 text-gray-900 text-sm my-3 w-full border-b-2 justify-center">
+                        <p>Vegan: {{$item->is_vegan ? 'Yes' : 'No'}}</p> 
+                    </div>
+
+                    <div class="flex space-x-2 text-gray-900 text-sm my-3 w-full border-b-2 justify-center">
+                        <p>Coeliac: {{$item->is_coeliac ? 'Yes' : 'No'}}</p> 
+                    </div>
+
+                    <div class="flex space-x-2 text-gray-900 text-sm my-3 w-full border-b-2 justify-center">
+                        <p>Alcohol: {{$item->has_alcohol ? 'Yes' : 'No'}}</p> 
+                    </div>
+
+                    <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                        <p>Cost: {{$item->cost}}</p> 
                     </div>
 
                     <div class="border-t-2"></div>
