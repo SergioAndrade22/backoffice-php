@@ -16,7 +16,6 @@ class Employee extends Model
         'first_name',
         'last_name',
         'username',
-        'username',
     ];
 
     public static function getRoleID($role) {
