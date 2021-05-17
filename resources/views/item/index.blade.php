@@ -1,15 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Items') }}
-        </h2>
+        <div class="w-full flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Items') }}
+            </h2>
+            <x-button>
+                Add Item
+            </x-button>
+        </div>
     </x-slot>
 
     <div class="flex items-center justify-center">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
             @foreach ($items as $item)
             <div class="relative bg-white py-3 px-3 rounded-3xl w-64 my-4 shadow-xl text-center justify-center">
-                <div class="h-full grid grid-cols-1 grid-rows-8 justify-center">
+                <div class="h-full grid grid-cols-1 grid-rows-8 justify-center justify-items-center">
                     <p class="text-xl font-semibold my-2">{{$item->name}}</p>
 
                     <div class="flex space-x-2 text-gray-400 text-sm justify-center ">
@@ -40,7 +45,7 @@
                         <p>Cost: {{$item->cost}}</p> 
                     </div>
     
-                    <div class="flex justify-between ">
+                    <div class="flex w-full px-2 justify-between ">
                         <div class="my-2">
                             <div class="text-base font-semibold whitespace-nowrap text-sm font-medium">
                                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
