@@ -3,4 +3,9 @@
 ## Projecto Laravel: Family Size Restaurant-Backend
 
 Proyecto Laravel de la materia Ingeniería de Aplicaciones Web
+
+### Reconocimientos de autor:
+* Las cards utilizadas siguen el template de [safwanAzman](https://github.com/safwanAzman)
+* Para las tablas se utilizó el siguiente [template](https://tailwindui.com/components/application-ui/lists/tables)
+
 by.- Sergio Andrade
