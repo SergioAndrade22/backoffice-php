@@ -20,33 +20,31 @@
                          <p>{{$item->cuisine}}</p> 
                     </div>
 
-                    <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                         <p>Vegetarian: {{$item->is_vege ? 'Yes' : 'No'}}</p> 
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                             <p>Vegetarian: {{$item->is_vege ? 'Yes' : 'No'}}</p> 
+                        </div>
+    
+                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                            <p>Vegan: {{$item->is_vegan ? 'Yes' : 'No'}}</p> 
+                        </div>
+    
+                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                            <p>Coeliac: {{$item->is_coeliac ? 'Yes' : 'No'}}</p> 
+                        </div>
+    
+                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                            <p>Alcohol: {{$item->has_alcohol ? 'Yes' : 'No'}}</p> 
+                        </div>
+    
+                        <div class="flex space-x-2 text-gray-900 text-sm my-3">
+                            <p>Cost: {{$item->cost}}</p> 
+                        </div>
                     </div>
-
-                    <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                        <p>Vegan: {{$item->is_vegan ? 'Yes' : 'No'}}</p> 
-                    </div>
-
-                    <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                        <p>Coeliac: {{$item->is_coeliac ? 'Yes' : 'No'}}</p> 
-                    </div>
-
-                    <div class="flex space-x-2 text-gray-900 text-sm my-3">
-                        <p>Alcohol: {{$item->has_alcohol ? 'Yes' : 'No'}}</p> 
-                    </div>  
 
                     <div class="border-t-2"></div>
     
                     <div class="flex justify-between">
-                        <div class="my-2">
-                            <p class="font-semibold text-base mb-2">Cost</p>
-
-                            <div class="text-base text-gray-400 font-semibold">
-                                <p>{{$item->cost}}</p>
-                            </div>
-                        </div>
-
                         <div class="my-2">
                             <div class="text-base font-semibold whitespace-nowrap text-sm font-medium">
                                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
