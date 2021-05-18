@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
+    protected $fillable = [
+        'cant_personas',
+        'descripcion',
+    ];
+
     public function personnel() {
         return $this->belongsToMany(Personnel::class);
     }
