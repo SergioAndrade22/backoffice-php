@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     protected $fillable = [
-        'cant_personas',
-        'descripcion',
+        'people',
+        'description',
     ];
 
     public function personnel() {

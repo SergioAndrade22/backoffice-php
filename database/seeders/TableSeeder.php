@@ -17,15 +17,15 @@ class TableSeeder extends Seeder
         $cantPersonas = [1,2,3,5,1,2,4,3,2];
 
         $descripcion = [
-            'Junto a la barra',
-            'Al lado de la ventana',
-            'Al lado de la escalera',
-            'Mesa principal arriba',
-            'Junto a la barra',
-            'Junto a la entrada',
-            'Segunda mesa arriba',
-            'Patio interno',
-            'Patio interno'
+            'By the bar',
+            'By the window',
+            'By the stairs',
+            'Main table 2nd floor',
+            'By the bar',
+            'By the entrance',
+            'Second table 2nd floor',
+            'Outside',
+            'Outside'
         ];
         
         for ($i = 0; $i < 9; $i++){
