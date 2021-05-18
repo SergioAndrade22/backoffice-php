@@ -31,8 +31,8 @@ class TableSeeder extends Seeder
         for ($i = 0; $i < 9; $i++){
             Table::create(
                 array(
-                    'cant_personas' => $cantPersonas[$i],
-                    'descripcion' => $descripcion[$i],
+                    'people' => $cantPersonas[$i],
+                    'description' => $descripcion[$i],
                 )
             );
         }
