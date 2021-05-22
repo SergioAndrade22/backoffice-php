@@ -18,6 +18,7 @@ class CreateItemOrderTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('item_id');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->integer('amount');
             $table->primary(['order_id', 'item_id']);
             $table->timestamps();
         });
