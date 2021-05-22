@@ -29,7 +29,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.create');
     }
 
     /**
@@ -40,7 +40,32 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'cuisine' => 'required',
+            'is_vege' => 'required',
+            'is_vegan' => 'required',
+            'is_coeliac' => 'required',
+            'has_alcohol' => 'required',
+            'cost' => 'required',
+        ]);
+        
+        $newItem = new Item([
+            'name' => $request->name,
+            'cuisine' => $request->cuisine,
+            'is_vege' => $request->is_vege,
+            'is_vegan' => $request->is_vegan,
+            'is_coeliac' => $request->is_coeliac,
+            'has_alcohol' => $request->has_alcohol,
+            'cost' => $request->cost,
+        ]);
+            
+        $picture = $request->picture;
+        if ($picture) $newItem->picture = $picture;
+
+        $newItem->save();
+
+        return redirect()->route('item.index')->with('success', 'Item created successfully');
     }
 
     /**
@@ -51,7 +76,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('item.show')->with('item', Item::find($id));
     }
 
     /**
@@ -62,7 +87,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('item.show')->with('item', Item::find($id));
     }
 
     /**
@@ -74,7 +99,35 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $oldItem = Item::find($id);
+
+        $name = $request->name;
+        if ($name) $oldItem->name = $name;
+
+        $cuisine = $request->cuisine;
+        if ($cuisine) $oldItem->cuisine = $cuisine;
+
+        $is_vege = $request->is_vege;
+        if ($is_vege) $oldItem->is_vege = $is_vege;
+
+        $is_vegan = $request->is_vegan;
+        if ($is_vegan) $oldItem->is_vegan = $is_vegan;
+
+        $is_coeliac = $request->is_coeliac;
+        if ($is_coeliac) $oldItem->is_coeliac = $is_coeliac;
+
+        $has_alcohol = $request->has_alcohol;
+        if ($has_alcohol) $oldItem->has_alcohol = $has_alcohol;
+
+        $cost = $request->cost;
+        if ($cost) $oldItem->cost = $cost;
+
+        $picture = $request->picture;
+        if ($picture) $oldItem->picture = $picture;
+
+        $oldItem->update();
+
+        return redirect()->route('item.index')-with('success', 'Item saved successfully');
     }
 
     /**
@@ -85,6 +138,8 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Item::find($id)->delete();
+
+        return redirect()->route('item.index')-with('success', 'Item deleted successfully');
     }
 }

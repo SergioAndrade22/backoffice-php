@@ -16,10 +16,8 @@ class TableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tables = Table::all();
-        return view('table.index')->with('tables', $tables);
+    public function index() {
+        return view('table.index')->with('tables', Table::all());
     }
 
     /**
@@ -27,9 +25,8 @@ class TableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('table.create');
     }
 
     /**
@@ -40,7 +37,18 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'people' => 'required',
+        ]);
+
+        $newTable = new Table;
+        $newTable->people = $request->people;
+
+        $description = $request->description;
+        if ($description) $newTable->description = $description;
+
+        $newTable->save();
+        return redirect()->route('table.index')->with('success', 'Table created succesfully');
     }
 
     /**
@@ -51,7 +59,7 @@ class TableController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('table.show')->with('order', Table::find($id));
     }
 
     /**
@@ -62,7 +70,7 @@ class TableController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('table.edit')->with('table', Table::find($id));
     }
 
     /**
@@ -72,9 +80,18 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $oldTable = Table::find($id);
+
+        $people = $request->people;
+        if ($people) $oldTable->people = $people;
+
+        $description = $request->description;
+        if ($description) $oldTable->description = $description;
+
+        $oldTable->update();
+
+        return redirect()->route('table.index')->with('success', 'Table saved succesfully');
     }
 
     /**
@@ -83,8 +100,9 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        Table::find($id)->delete();
+
+        return redirect()->route('index.index')->with('success', 'Table deleted succesfully');
     }
 }
