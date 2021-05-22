@@ -14,10 +14,12 @@ class ItemOrderSeeder extends Seeder
      */
     public function run()
     {
+        $items_id = [1,2,3];
+        $orders_id = [1,2,3,4,5];
         for ($i = 0; $i < 4; $i++) {
             DB::table('item_order')->insert([
-                'item_id' => rand(1, 3),
-                'order_id' => rand(1, 5),
+                'item_id' => $items_id[$i],
+                'order_id' => $orders_id[$i],
                 'amount' => rand(1,4),
             ]);
         }
