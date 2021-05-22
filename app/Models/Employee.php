@@ -15,7 +15,6 @@ class Employee extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'username',
     ];
 
     public static function getRoleID($role) {
@@ -33,7 +32,7 @@ class Employee extends Model
         }
     }
 
-    public function tables() {
-        return $this->belongsToMany(Table::class);
+    public function username() {
+        return $this->belongsTo(User::class);
     }
 }
