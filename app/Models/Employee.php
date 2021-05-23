@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Employee extends Model
 {
@@ -32,7 +33,7 @@ class Employee extends Model
         }
     }
 
-    public function username() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 }
