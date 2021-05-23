@@ -11,10 +11,6 @@ class Table extends Model
         'description',
     ];
 
-    public function personnel() {
-        return $this->belongsToMany(Personnel::class);
-    }
-
     public function orders() {
         return $this->hasMany(Order::class);
     }
