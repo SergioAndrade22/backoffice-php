@@ -19,9 +19,18 @@
         <tbody>
             @foreach ($tables as $table)
                 <tr>
-                    <td>{{$table->id}}</td>
-                    <td>{{$table->people}}</td>
-                    <td>{{$table->description}}</td>
+                    <td>
+                        <a href="/tables/{{$table->id}}">{{$table->id}}</a>
+                    </td>
+
+                    <td>
+                        {{$table->people}}
+                    </td>
+
+                    <td>
+                        {{$table->description}}
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>

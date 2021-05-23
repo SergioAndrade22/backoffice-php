@@ -19,9 +19,17 @@
         <tbody>
             @foreach ($orders as $order)
                 <tr>
-                    <td>{{$order->id}}</td>
-                    <td>{{$order->total_cost}}</td>
-                    <td>{{$order->items}}</td>
+                    <td>
+                        <a href="/orders/{{$order->id}}">{{$order->id}}</a>
+                    </td>
+
+                    <td>
+                        {{$order->total_cost}}
+                    </td>
+
+                    <td>
+                        {{$order->items}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>

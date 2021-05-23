@@ -20,10 +20,21 @@
         <tbody>
             @foreach ($employees as $employee)
                 <tr>
-                    <td>{{$employee->first_name}}</td>
-                    <td>{{$employee->last_name}}</td>
-                    <td>{{$employee->username}}</td>
-                    <td>{{$employee->getRoleAttribute()}}</td>
+                    <td>
+                        <a class="hover:border-gray-300" href="/employees/{{$employee->id}}">{{$employee->first_name}}</a>
+                    </td>
+
+                    <td>
+                        {{$employee->last_name}}
+                    </td>
+
+                    <td>
+                        {{$employee->username}}
+                    </td>
+
+                    <td>
+                        {{$employee->getRoleAttribute()}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>

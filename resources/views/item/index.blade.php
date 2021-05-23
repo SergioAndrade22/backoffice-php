@@ -15,7 +15,9 @@
             @foreach ($items as $item)
             <div class="relative bg-white py-3 px-3 rounded-3xl w-64 my-4 shadow-xl text-center justify-center">
                 <div class="h-full grid grid-cols-1 grid-rows-8 justify-center justify-items-center">
-                    <p class="text-xl font-semibold my-2">{{$item->name}}</p>
+                    <a href="/items/{{$item->id}}" class="hover:border-gray-300">
+                        <p class="text-xl font-semibold my-2">{{$item->name}}</p>
+                    </a>                    
 
                     <div class="flex space-x-2 text-gray-400 text-sm justify-center ">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
