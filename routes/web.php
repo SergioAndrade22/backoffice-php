@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resources([
-    'items' => ItemController::class
+    'items' => ItemController::class,
+    'tables' => TableController::class,
+    'orders' => OrderController::class,
+    'employees' => EmployeeController::class,
 ]);
 
 Route::get('/', function () {
