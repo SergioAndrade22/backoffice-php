@@ -13,8 +13,7 @@
     <table>
         <tr>
             <th>Number</th>
-            <th>Total Cost</th>
-            <th>Items</th>            
+            <th>Total Cost</th> 
         </tr>
         <tbody>
             @foreach ($orders as $order)

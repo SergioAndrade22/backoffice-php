@@ -27,7 +27,7 @@
                     <td>
                         {{$employee->last_name}}
                     </td>
-
+                    
                     <td>
                         {{$employee->user->name}}
                     </td>

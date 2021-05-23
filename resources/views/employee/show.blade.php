@@ -15,7 +15,7 @@
         </label>
 
         <label style="display:block;">
-            Username: {{$employee->user->email}}
+            Email: {{$employee->user->email}}
         </label>
 
         <label style="display:block;">
