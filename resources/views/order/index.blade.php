@@ -23,7 +23,7 @@
                     </td>
 
                     <td>
-                        {{$order->total_cost}}
+                        ${{$order->total_cost}}
                     </td>
                 </tr>
             @endforeach
