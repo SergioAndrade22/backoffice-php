@@ -59,7 +59,7 @@ class TableController extends Controller
      */
     public function show($id)
     {
-        return view('table.show')->with('order', Table::find($id));
+        return view('table.show')->with('table', Table::find($id));
     }
 
     /**
