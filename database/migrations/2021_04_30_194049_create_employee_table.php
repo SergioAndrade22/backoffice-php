@@ -18,7 +18,7 @@ class CreateEmployeeTable extends Migration
             $table->integer('employee_role_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('user');
+            $table->integer('user');
             $table->foreign('user')->references('id')->on('users');
             $table->timestamps();
         });
