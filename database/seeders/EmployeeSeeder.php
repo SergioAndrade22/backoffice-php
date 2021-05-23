@@ -24,7 +24,7 @@ class EmployeeSeeder extends Seeder
                     'employee_role_id' => $employeeRole[$i],
                     'first_name' => $employeeName[$i],
                     'last_name' => $employeeSurname[$i],
-                    'user' => $employeeUser[$i],
+                    'user_id' => $employeeUser[$i],
                 )
             );
         }
