@@ -29,7 +29,7 @@
                     </td>
 
                     <td>
-                        {{$employee->username}}
+                        {{$employee->user->name}}
                     </td>
 
                     <td>

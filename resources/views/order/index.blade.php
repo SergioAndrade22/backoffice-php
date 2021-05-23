@@ -26,10 +26,6 @@
                     <td>
                         {{$order->total_cost}}
                     </td>
-
-                    <td>
-                        {{$order->items}}
-                    </td>
                 </tr>
             @endforeach
         </tbody>
