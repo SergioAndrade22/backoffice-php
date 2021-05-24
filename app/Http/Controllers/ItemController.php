@@ -14,8 +14,6 @@ class ItemController extends Controller
     private $successResult = 'success';
     private function successMessage($action) {return `Item $action successfully`;}
 
-    private $indexRedirectURL = redirect()->route('items.index');
-
     public function __construct(){
         $this->middleware(['auth', 'verified']);
     }
@@ -70,9 +68,9 @@ class ItemController extends Controller
     
             $newItem->save();
             
-            return $this->indexRedirectURL->with($this->successResult, $this->successMessage('created'));
+            return redirect()->route('items.index')->with($this->successResult, $this->successMessage('created'));
         } catch (Exception) {
-            return $this->indexRedirectURL->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
         }
     }
 
@@ -89,10 +87,10 @@ class ItemController extends Controller
             if ($item) {
                 return view('item.show')->with('item', $item); 
             } else {
-                return $this->indexRedirectURL->with($this->errorResult, $this->invalidIdMessage);
+                return redirect()->route('items.index')->with($this->errorResult, $this->invalidIdMessage);
             }
         } catch(Exception) {
-            return $this->indexRedirectURL->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
         }        
     }
 
@@ -109,10 +107,10 @@ class ItemController extends Controller
             if ($item) {
                 return view('item.edit')->with('item', $item); 
             } else {
-                return $this->indexRedirectURL->with($this->errorResult, $this->invalidIdMessage);
+                return redirect()->route('items.index')->with($this->errorResult, $this->invalidIdMessage);
             }            
         } catch(Exception) {
-            return $this->indexRedirectURL->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
         }        
     }
 
@@ -164,7 +162,7 @@ class ItemController extends Controller
             $message = $this->internalErrorMessage;
         }
 
-        return $this->indexRedirectURL->with($result, $message);
+        return redirect()->route('items.index')->with($result, $message);
     }
 
     /**
@@ -190,6 +188,6 @@ class ItemController extends Controller
             $message = $this->internalErrorMessage;
         }
 
-        return $this->indexRedirectURL->with($result, $message);
+        return redirect()->route('items.index')->with($result, $message);
     }
 }
