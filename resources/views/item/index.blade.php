@@ -4,9 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Items') }}
             </h2>
-            <x-button>
+            <x-link-button href="{{url('/items/create')}}">
                 Add Item
-            </x-button>
+            </x-link-button>
         </div>
     </x-slot>
 
