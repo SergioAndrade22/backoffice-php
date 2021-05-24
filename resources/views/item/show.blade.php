@@ -38,9 +38,9 @@
             <img class='h-auto md:w-1/5 w-2/3 mb-2 mx-auto rounded-lg' src='data:image/jpeg;base64,{{$item->picture}}'  alt='Item picture'>
         @else
             <img class='h-auto md:w-1/5 w-2/3 mb-2 mx-auto rounded-lg' src='{{asset('img/no-picture.png')}}'  alt='No picture'>
-        @endif        
+        @endif
 
-        <form class="flex w-full px-2 justify-between" action={{action("App\Http\Controllers\ItemController@destroy", [$item->id])}} method="POST">
+        <form class="flex w-full px-2 justify-between" action={{action("App\Http\Controllers\ItemController@destroy", [$item->id])}} method="POST" onsubmit="return toggleModal('modal-id');">
             @csrf
             @method('DELETE')
             <a class="w-20 my-2 text-base text-indigo-600 hover:text-indigo-900 font-semibold whitespace-nowrap text-sm font-medium" href="/items/{{$item->id}}/edit">Edit</a>
@@ -50,4 +50,7 @@
             </x-button>
         </form>
     </div>
+
+    <x-confirmation-dialog></x-confirmation-dialog>
+    
 </x-app-layout>
