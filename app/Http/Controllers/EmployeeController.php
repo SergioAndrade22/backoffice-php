@@ -55,7 +55,7 @@ class EmployeeController extends Controller
 
         $user = User::where('name', $request->username)->get();
         $newEmployee->username()->attach($user->id);
-        return redirect()->route('employee.index')->with('success', 'Employee created successfully');
+        return redirect()->route('employees.index')->with('success', 'Employee created successfully');
     }
 
     /**
@@ -100,7 +100,7 @@ class EmployeeController extends Controller
 
         $oldEmployee->update();
 
-        return redirect()->route('employee.index')->with('success', 'Employee save successfully');
+        return redirect()->route('employees.index')->with('success', 'Employee save successfully');
     }
 
     /**
@@ -113,6 +113,6 @@ class EmployeeController extends Controller
     {
         Order::find($id)->delete();
 
-        return redirect()->route('employee.index')->with('success', 'Employee deleted successfully');
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully');
     }
 }

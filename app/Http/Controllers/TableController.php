@@ -48,7 +48,7 @@ class TableController extends Controller
         if ($description) $newTable->description = $description;
 
         $newTable->save();
-        return redirect()->route('table.index')->with('success', 'Table created succesfully');
+        return redirect()->route('tables.index')->with('success', 'Table created succesfully');
     }
 
     /**
@@ -91,7 +91,7 @@ class TableController extends Controller
 
         $oldTable->update();
 
-        return redirect()->route('table.index')->with('success', 'Table saved succesfully');
+        return redirect()->route('tables.index')->with('success', 'Table saved succesfully');
     }
 
     /**
@@ -103,6 +103,6 @@ class TableController extends Controller
     public function destroy($id) {
         Table::find($id)->delete();
 
-        return redirect()->route('index.index')->with('success', 'Table deleted succesfully');
+        return redirect()->route('tables.index')->with('success', 'Table deleted succesfully');
     }
 }
