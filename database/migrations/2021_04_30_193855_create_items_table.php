@@ -22,7 +22,7 @@ class CreateItemsTable extends Migration
             $table->boolean('is_coeliac');
             $table->boolean('has_alcohol');
             $table->double('cost');
-            $table->binary('picture')->nullable();
+            $table->longText('picture')->nullable();
             $table->timestamps();
         });
     }

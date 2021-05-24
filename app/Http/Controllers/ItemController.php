@@ -43,29 +43,24 @@ class ItemController extends Controller
         $request->validate([
             'name' => 'required',
             'cuisine' => 'required',
-            'is_vege' => 'required',
-            'is_vegan' => 'required',
-            'is_coeliac' => 'required',
-            'has_alcohol' => 'required',
             'cost' => 'required',
         ]);
         
         $newItem = new Item([
             'name' => $request->name,
             'cuisine' => $request->cuisine,
-            'is_vege' => $request->is_vege,
-            'is_vegan' => $request->is_vegan,
-            'is_coeliac' => $request->is_coeliac,
-            'has_alcohol' => $request->has_alcohol,
+            'is_vege' => $request->has('is_vege'),
+            'is_vegan' => $request->has('is_vegan'),
+            'is_coeliac' => $request->has('is_coeliac'),
+            'has_alcohol' => $request->has('has_alcohol'),
             'cost' => $request->cost,
         ]);
             
-        $picture = $request->picture;
-        if ($picture) $newItem->picture = $picture;
+        if ($request->picture) $newItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
 
         $newItem->save();
 
-        return redirect()->route('item.index')->with('success', 'Item created successfully');
+        return redirect()->route('items.index')->with('success', 'Item created successfully');
     }
 
     /**
@@ -122,12 +117,11 @@ class ItemController extends Controller
         $cost = $request->cost;
         if ($cost) $oldItem->cost = $cost;
 
-        $picture = $request->picture;
-        if ($picture) $oldItem->picture = $picture;
+        if ($request->picture) $oldItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
 
         $oldItem->update();
 
-        return redirect()->route('item.index')-with('success', 'Item saved successfully');
+        return redirect()->route('items.index')-with('success', 'Item saved successfully');
     }
 
     /**
@@ -140,6 +134,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
 
-        return redirect()->route('item.index')-with('success', 'Item deleted successfully');
+        return redirect()->route('items.index')-with('success', 'Item deleted successfully');
     }
 }
