@@ -33,5 +33,7 @@
         <label style="display:block;">
             Has alcohol: {{$item->has_alcohol ? 'Yes' : 'No'}}
         </label>
+
+        <img src="data:image/jpeg;base64,{{$item->picture}}"  alt="Item picture">
     </div>
 </x-app-layout>
