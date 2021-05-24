@@ -8,5 +8,7 @@ Proyecto Laravel de la materia Ingeniería de Aplicaciones Web
 * Las cards utilizadas siguen el template de [safwanAzman](https://github.com/safwanAzman)
 * Para las tablas se utilizó el siguiente [template](https://tailwindui.com/components/application-ui/lists/tables)
 * Para los forms se utilizó el siguiente [template](https://tailwindcomponents.com/component/form-with-file-input)
+* Para el modal popup se utilizó el siguiente [template](https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/javascript/modals/regular)
+* Para las toast notifications se utilizó el siguiente [template](https://tailwindcomponents.com/component/toast-notification)
 
 by.- Sergio Andrade
