@@ -57,7 +57,6 @@ class ItemController extends Controller
         ]);
 
         if ($request->has('picture')) $newItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
-        else $newItem->picture = base64_encode(file_get_contents(public_path('img/no-picture.png')));
 
         $newItem->save();
 
@@ -83,7 +82,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        return view('item.show')->with('item', Item::find($id));
+        return view('item.edit')->with('item', Item::find($id));
     }
 
     /**
@@ -121,9 +120,9 @@ class ItemController extends Controller
         if ($request->has('picture')) $oldItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
         else $oldItem->picture = base64_encode(file_get_contents(public_path('img/no-picture.png')));
 
-        $oldItem->update();
+        $oldItem->save();
 
-        return redirect()->route('items.index')-with('success', 'Item saved successfully');
+        return redirect()->route('items.index')->with('success', 'Item saved successfully');
     }
 
     /**
@@ -136,6 +135,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
 
-        return redirect()->route('items.index')-with('success', 'Item deleted successfully');
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully');
     }
 }
