@@ -55,8 +55,9 @@ class ItemController extends Controller
             'has_alcohol' => $request->has('has_alcohol'),
             'cost' => $request->cost,
         ]);
-            
-        if ($request->picture) $newItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
+
+        if ($request->has('picture')) $newItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
+        else $newItem->picture = base64_encode(file_get_contents(public_path('img/no-picture.png')));
 
         $newItem->save();
 
@@ -117,7 +118,8 @@ class ItemController extends Controller
         $cost = $request->cost;
         if ($cost) $oldItem->cost = $cost;
 
-        if ($request->picture) $oldItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
+        if ($request->has('picture')) $oldItem->picture = base64_encode(file_get_contents($request->file('picture')->path()));
+        else $oldItem->picture = base64_encode(file_get_contents(public_path('img/no-picture.png')));
 
         $oldItem->update();
 
