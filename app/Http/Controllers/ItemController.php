@@ -4,16 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\ConstantMessages;
 use Exception;
 
 class ItemController extends Controller
 {
-    private $internalErrorMessage = 'Internal error occured, contact sysadmin';
-    private $invalidIdMessage = 'Wrong id for selected item';
-    private $errorResult = 'error';
-    private $successResult = 'success';
-    private function successMessage($action) {return `Item $action successfully`;}
-
     public function __construct(){
         $this->middleware(['auth', 'verified']);
     }
@@ -25,8 +20,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        return view('item.index')->with('items', $items);
+        try {
+            return view('item.index')->with('items', Item::all());
+        } catch (Exception) {
+            return view('dashboard')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -68,9 +66,9 @@ class ItemController extends Controller
     
             $newItem->save();
             
-            return redirect()->route('items.index')->with($this->successResult, $this->successMessage('created'));
+            return redirect()->route('items.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Item', 'created'));
         } catch (Exception) {
-            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -87,10 +85,10 @@ class ItemController extends Controller
             if ($item) {
                 return view('item.show')->with('item', $item); 
             } else {
-                return redirect()->route('items.index')->with($this->errorResult, $this->invalidIdMessage);
+                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }        
     }
 
@@ -107,10 +105,10 @@ class ItemController extends Controller
             if ($item) {
                 return view('item.edit')->with('item', $item); 
             } else {
-                return redirect()->route('items.index')->with($this->errorResult, $this->invalidIdMessage);
+                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }            
         } catch(Exception) {
-            return redirect()->route('items.index')->with($this->errorResult, $this->internalErrorMessage);
+            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }        
     }
 
@@ -151,15 +149,15 @@ class ItemController extends Controller
                 else $oldItem->picture = base64_encode(file_get_contents(public_path('img/no-picture.png')));
 
                 $oldItem->save();
-                $result = $this->successResult;
-                $message = $this->successMessage('saved');
+                $result = ConstantMessages::successResult;
+                $message = ConstantMessages::successMessage('Item', 'saved');
             } else {
-                $result= $this->errorResult;
-                $message = $this->invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             }
         } catch(Exception) {
-            $result = $this->errorResult;
-            $message = $this->internalErrorMessage;
+            $result = ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
 
         return redirect()->route('items.index')->with($result, $message);
@@ -177,15 +175,15 @@ class ItemController extends Controller
             $item = Item::find($id);
             if ($item) {
                 $item->delete();
-                $result = $this->successResult;
-                $message = $this->successMessage('deleted');
+                $result = ConstantMessages::successResult;
+                $message = ConstantMessages::successMessage('Item', 'deleted');
             } else {
-                $result= $this->errorResult;
-                $message = $this->invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             }
         } catch (Exception) {
-            $result= $this->errorResult;
-            $message = $this->internalErrorMessage;
+            $result= ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
 
         return redirect()->route('items.index')->with($result, $message);

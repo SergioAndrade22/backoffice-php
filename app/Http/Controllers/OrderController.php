@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Table;
+use App\Models\ConstantMessages;
+use Exception;
 
 class OrderController extends Controller
 {
+    private $geIdFunction = function($item) {
+        return $item->id;
+    };
+
     public function __construct() {
         $this->middleware(['auth', 'verified']);
     }
@@ -18,7 +25,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('order.index')->with('orders', Order::all());
+        try{
+            return view('order.index')->with('orders', Order::all());
+        } catch (Exception) {
+            return view('dashboard')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+        }
     }
 
     /**
@@ -27,7 +38,14 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('order.create');
+        try{
+            $items = Item::all();
+            $tables = Table::all();
+            return view('order.create')->with('items', $items)
+                                       ->with('tables', $tables);
+        } catch (Exception) {
+            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+        }
     }
 
     /**
@@ -43,17 +61,20 @@ class OrderController extends Controller
             'items' => 'required',
         ]);
 
-        $newOrder = new Order([
-            'total_cost' => $request->total_cost,
-        ]);
-
-        $newOrder->save();
-
-        $table = Table::where('id', $request->table_id)->get();
-        $newOrder->table()->attach($table->id);
-
-        $newOrder->items()->attach(array_map($this->getIdFunc, $request->items));
-        return redirect()->route('orders.index')->with('success', 'Order created successfully');
+        try {
+            $newOrder = new Order([
+                'total_cost' => $request->total_cost,
+            ]);
+    
+            $newOrder->save();
+    
+            $table = Table::where('id', $request->table_id)->get();
+            $newOrder->table()->attach($table->id);
+            $newOrder->items()->attach(array_map($this->geIdFunction, $request->items));
+            return redirect()->route('orders.index')->with(ConstantMessages::$successResult, ConstantMessages::successMessage('Order', 'created'));
+        } catch (Exception) {
+            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+        }
     }
 
     /**
@@ -63,7 +84,16 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        return view('order.show')->with('order', Order::find($id));
+        try {
+            $order = Order::find($id);
+            if ($order){
+                return view('order.show')->with('order', $order);
+            } else {
+                return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+            }
+        } catch(Exception) {
+            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+        }
     }
 
     /**
@@ -73,7 +103,20 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        return view('order.edit')->with('order', Order::find($id));
+        try {
+            $order = Order::find($id);
+            $items = Item::all();
+            $tables = Table::all();
+            if ($order){
+                return view('order.edit')->with('order', $order)
+                                         ->with('items', $items)
+                                         ->with('tables', $tables);
+            } else {
+                return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+            }
+        } catch(Exception) {
+            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+        }
     }
 
     /**
@@ -84,31 +127,43 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $oldOrder = Order::find($id);
-
-        $totalCost = $request->total_cost;
-        if ($totalCost) {
-            $oldOrder->total_cost = $totalCost;
-            $oldOrder->update();
+        try{
+            $oldOrder = Order::find($id);
+    
+            if ($oldOrder) {
+                $totalCost = $request->total_cost;
+                if ($totalCost) {
+                    $oldOrder->total_cost = $totalCost;
+                    $oldOrder->save();
+                }
+        
+                $tableId = $request->table_id;
+                if ($tableId){
+                    $table = Table::where('id', $tableId)->get();
+                    $oldOrder->table()->dettach($tableId);
+                    $oldOrder->table()->attach($table->id);
+                }
+        
+                $items = $request->items;
+                if ($items){
+                    $oldItemsIds = array_map($this->geIdFunction, $oldOrder->items()->get());
+                    $oldOrder->detach($oldItemsIds);
+        
+                    $newItemsIds = array_map($this->geIdFunction, $items);
+                    $oldOrder->attach($newItemsIds);
+                }        
+                $result = ConstantMessages::$successResult;
+                $message = ConstantMessages::successMessage('Order', 'saved');
+            } else {
+                $result= ConstantMessages::$errorResult;
+                $message = ConstantMessages::$invalidIdMessage;
+            } 
+        } catch(Exception) {
+            $result = ConstantMessages::$errorResult;
+            $message = ConstantMessages::$internalErrorMessage;
         }
-
-        $tableId = $request->table_id;
-        if ($tableId){
-            $table = Table::where('id', $tableId)->get();
-            $oldOrder->table()->dettach($tableId);
-            $oldOrder->table()->attach($table->id);
-        }
-
-        $items = $request->items;
-        if ($items){
-            $oldItemsIds = array_map($this->getIdFunc, $oldOrder->items()->get());
-            $oldOrder->detach($oldItemsIds);
-
-            $newItemsIds = array_map($this->getIdFunc, $items);
-            $oldOrder->attach($newItemsIds);
-        }        
-
-        return redirect()->route('orders.index')->with('success', 'Order saved successfully');
+        
+        return redirect()->route('orders.index')->with($result, $message);
     }
 
     /**
@@ -118,12 +173,21 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Order::find($id)->delete();
+        try {
+            $order = Order::find($id);
+            if ($order) {
+                $order->delete();
+                $result = ConstantMessages::$successResult;
+                $message = ConstantMessages::successMessage('Order', 'deleted');
+            } else {
+                $result= ConstantMessages::$errorResult;
+                $message = ConstantMessages::$invalidIdMessage;
+            }
+        }  catch (Exception) {
+            $result= ConstantMessages::$errorResult;
+            $message = ConstantMessages::$internalErrorMessage;
+        }
 
-        return redirect()->route('orders.index')->with('success', 'Order deleted successfully');
-    }
-
-    private function getIdFunc($item) {
-        return $item->id;
+        return redirect()->route('orders.index')->with($result, $message);
     }
 }
