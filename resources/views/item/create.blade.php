@@ -9,7 +9,7 @@
         </div>
     </x-slot>
 
-    <form class="flex pt-8 h-screen bg-gray-200 items-start justify-center" action="/items" method="POST" enctype="multipart/form-data">
+    <form class="flex pt-8 h-screen items-start justify-center" action="/items" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">

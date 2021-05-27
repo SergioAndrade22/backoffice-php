@@ -9,7 +9,7 @@
         </div>
     </x-slot>
 
-    <div class="w-full flex flex-col justify-center my-4 mx-auto bg-white">
+    <div class="w-3/4 m-4 p-4 rounded-lg flex flex-col justify-center my-4 mx-auto border bg-white">
         <label class="text-center mt-2 mb-2">
             Cuisine: {{$item->cuisine}}
         </label>
@@ -40,17 +40,17 @@
             <img class='h-auto md:w-1/5 w-2/3 mb-2 mx-auto rounded-lg' src='{{asset('img/no-picture.png')}}'  alt='No picture'>
         @endif
 
-        <form class="flex w-full px-2 justify-between" action={{action("App\Http\Controllers\ItemController@destroy", [$item->id])}} method="POST" onsubmit="return toggleModal('modal-id');">
+        <form class="flex w-full px-2 mt-4 justify-between" action={{action("App\Http\Controllers\ItemController@destroy", [$item->id])}} method="POST">
             @csrf
             @method('DELETE')
             <a class="w-20 my-2 text-base text-indigo-600 hover:text-indigo-900 font-semibold whitespace-nowrap text-sm font-medium" href="/items/{{$item->id}}/edit">Edit</a>
 
-            <x-button>
-                <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 font-semibold whitespace-nowrap text-sm font-medium">Delete</a>
-            </x-button>
+            <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 text-right font-semibold whitespace-nowrap text-sm font-medium cursor-pointer" onclick="toggleModal('modal-id');">Delete</a>
+
+            <x-confirmation-dialog></x-confirmation-dialog>
         </form>
     </div>
 
-    <x-confirmation-dialog></x-confirmation-dialog>
+    
     
 </x-app-layout>

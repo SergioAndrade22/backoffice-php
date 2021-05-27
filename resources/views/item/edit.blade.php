@@ -9,12 +9,11 @@
         </div>
     </x-slot>
 
-    <form class="flex pt-8 h-screen bg-gray-200 items-start justify-center" action="/items/{{$item->id}}" method="POST" enctype="multipart/form-data">
+    <form class="flex pt-8 h-screen items-start justify-center" action="/items/{{$item->id}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
-      
             <div class="flex justify-center mt-5">
                 <div class="flex">
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Item Data</h1>
@@ -76,7 +75,9 @@
                 </label>
             </div>
         
-            <div class="flex justify-end">
+            <div class="flex justify-between items-center">
+                <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 text-right font-semibold whitespace-nowrap text-sm font-medium cursor-pointer" href="/items/{{$item->id}}">Cancel</a>
+
                 <button type="submit" class='w-auto m-4 bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Save changes</button>
             </div>      
         </div>
