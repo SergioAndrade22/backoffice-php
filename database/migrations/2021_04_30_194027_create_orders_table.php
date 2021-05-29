@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('table_id');
             $table->foreign('table_id')->references('id')->on('tables');
+            $table->date('date');
             $table->double('total_cost');
             $table->timestamps();
         });

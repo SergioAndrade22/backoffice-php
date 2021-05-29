@@ -8,6 +8,7 @@ class Order extends Model
 {
     protected $fillable = [
         'total_cost',
+        'date'
     ];
 
     public function table() {
