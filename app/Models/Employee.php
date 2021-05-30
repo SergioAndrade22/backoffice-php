@@ -22,13 +22,13 @@ class Employee extends Model
     }
 
     public function getPositionAttribute() {
-        return self::POSITIONS[ $this->attributes['employee_role_id'] ];
+        return self::POSITIONS[ $this->attributes['employee_position_id'] ];
     }
 
     public function setPositionAttribute($value) {
         $roleID = self::getRoleID($value);
         if ($roleID) {
-            $this->attributes['employee_role_id'] = $roleID;
+            $this->attributes['employee_position_id'] = $roleID;
         }
     }
 
