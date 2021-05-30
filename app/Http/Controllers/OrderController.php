@@ -11,9 +11,9 @@ use Exception;
 
 class OrderController extends Controller
 {
-    private $geIdFunction = function($item) {
+    private function getIdFunction($item) {
         return $item->id;
-    };
+    }
 
     public function __construct() {
         $this->middleware(['auth', 'verified']);
@@ -28,7 +28,7 @@ class OrderController extends Controller
         try{
             return view('order.index')->with('orders', Order::all());
         } catch (Exception) {
-            return view('dashboard')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return view('dashboard')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -44,7 +44,7 @@ class OrderController extends Controller
             return view('order.create')->with('items', $items)
                                        ->with('tables', $tables);
         } catch (Exception) {
-            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -71,9 +71,9 @@ class OrderController extends Controller
             $table = Table::where('id', $request->table_id)->get();
             $newOrder->table()->attach($table->id);
             $newOrder->items()->attach(array_map($this->geIdFunction, $request->items));
-            return redirect()->route('orders.index')->with(ConstantMessages::$successResult, ConstantMessages::successMessage('Order', 'created'));
+            return redirect()->route('orders.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Order', 'created'));
         } catch (Exception) {
-            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -89,10 +89,10 @@ class OrderController extends Controller
             if ($order){
                 return view('order.show')->with('order', $order);
             } else {
-                return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+                return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -112,10 +112,10 @@ class OrderController extends Controller
                                          ->with('items', $items)
                                          ->with('tables', $tables);
             } else {
-                return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+                return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('orders.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -152,15 +152,15 @@ class OrderController extends Controller
                     $newItemsIds = array_map($this->geIdFunction, $items);
                     $oldOrder->attach($newItemsIds);
                 }        
-                $result = ConstantMessages::$successResult;
+                $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Order', 'saved');
             } else {
-                $result= ConstantMessages::$errorResult;
-                $message = ConstantMessages::$invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             } 
         } catch(Exception) {
-            $result = ConstantMessages::$errorResult;
-            $message = ConstantMessages::$internalErrorMessage;
+            $result = ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
         
         return redirect()->route('orders.index')->with($result, $message);
@@ -177,15 +177,15 @@ class OrderController extends Controller
             $order = Order::find($id);
             if ($order) {
                 $order->delete();
-                $result = ConstantMessages::$successResult;
+                $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Order', 'deleted');
             } else {
-                $result= ConstantMessages::$errorResult;
-                $message = ConstantMessages::$invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             }
         }  catch (Exception) {
-            $result= ConstantMessages::$errorResult;
-            $message = ConstantMessages::$internalErrorMessage;
+            $result= ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
 
         return redirect()->route('orders.index')->with($result, $message);
