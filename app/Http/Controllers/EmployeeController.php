@@ -23,7 +23,7 @@ class EmployeeController extends Controller
         try{
             return view('employee.index')->with('employees', Employee::all());
         } catch(Exception) {
-            return view('dashboard')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return view('dashboard')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -35,9 +35,9 @@ class EmployeeController extends Controller
     public function create() {
         try {
             $users = User::all();
-            return view('employee.create')->with('users', $users);
+            return view('employee.create')->with('users', $users)->with('positions', Employee::allPositions());
         } catch (Exception) {
-            return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -62,14 +62,20 @@ class EmployeeController extends Controller
                 'last_name' => $request->last_name,
             ]);
     
-            $newEmployee->save();
-    
-            $user = $request->user;
-            if ($user) $newEmployee->username()->attach($user->id);
-            
-            return redirect()->route('employees.index')->with(ConstantMessages::$successResult, ConstantMessages::successMessage('Employee', 'created'));
+            $user_name = $request->user_name;
+            if ($user_name) {
+                $user = User::find('name', $user_name);
+
+                if ($user) {
+                    $newEmployee->save();
+                    $newEmployee->username()->attach($user->id);
+                    return redirect()->route('employees.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Employee', 'created'));
+                } else {
+
+                }
+            }
         } catch (Exception) {
-            return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -85,10 +91,10 @@ class EmployeeController extends Controller
             if ($employee){
                 return view('employee.show')->with('employee', $employee);
             } else {
-                return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+                return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -104,10 +110,10 @@ class EmployeeController extends Controller
             if ($employee){
                 return view('employee.edit')->with('employee', $employee);
             } else {
-                return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$invalidIdMessage);
+                return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('employees.index')->with(ConstantMessages::$errorResult, ConstantMessages::$internalErrorMessage);
+            return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -134,15 +140,15 @@ class EmployeeController extends Controller
                 if ($last_name) $oldEmployee->last_name = $last_name;
         
                 $oldEmployee->save();
-                $result = ConstantMessages::$successResult;
+                $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Employee', 'saved');
             } else {
-                $result= ConstantMessages::$errorResult;
-                $message = ConstantMessages::$invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             } 
         } catch(Exception) {
-            $result = ConstantMessages::$errorResult;
-            $message = ConstantMessages::$internalErrorMessage;
+            $result = ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
         
         return redirect()->route('employees.index')->with($result, $message);
@@ -160,15 +166,15 @@ class EmployeeController extends Controller
             $employee = Employee::find($id);
             if ($employee) {
                 $employee->delete();
-                $result = ConstantMessages::$successResult;
+                $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Employee', 'deleted');
             } else {
-                $result= ConstantMessages::$errorResult;
-                $message = ConstantMessages::$invalidIdMessage;
+                $result= ConstantMessages::errorResult;
+                $message = ConstantMessages::invalidIdMessage;
             }
         }  catch (Exception) {
-            $result= ConstantMessages::$errorResult;
-            $message = ConstantMessages::$internalErrorMessage;
+            $result= ConstantMessages::errorResult;
+            $message = ConstantMessages::internalErrorMessage;
         }
 
         return redirect()->route('employees.index')->with($result, $message);
