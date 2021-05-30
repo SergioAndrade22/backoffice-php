@@ -17,29 +17,37 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
-                        {{ __('Items') }}
-                    </x-nav-link>
-                </div>
+                @can('items.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
+                            {{ __('Items') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
-                        {{ __('Orders') }}
-                    </x-nav-link>
-                </div>
+                @can('orders.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.index')">
-                        {{ __('Tables') }}
-                    </x-nav-link>
-                </div>
+                @can('tables.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.index')">
+                            {{ __('Tables') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
-                        {{ __('Employees') }}
-                    </x-nav-link>
-                </div>
+                @can('employees.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
+                            {{ __('Employees') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
@@ -92,29 +100,37 @@
             </x-responsive-nav-link>
         </div>
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
-                {{ __('Items') }}
-            </x-responsive-nav-link>
-        </div>
+        @can('items.index')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
+                    {{ __('Items') }}
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
-                {{ __('Orders') }}
-            </x-responsive-nav-link>
-        </div>
+        @can('orders.index')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                    {{ __('Orders') }}
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.index')">
-                {{ __('Tables') }}
-            </x-responsive-nav-link>
-        </div>
+        @can('tables.index')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('tables.index')" :active="request()->routeIs('tables.index')">
+                    {{ __('Tables') }}
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
-                {{ __('Employees') }}
-            </x-responsive-nav-link>
-        </div>
+        @can('employees.index')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
+                    {{ __('Employees') }}
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
