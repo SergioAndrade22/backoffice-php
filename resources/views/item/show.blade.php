@@ -50,7 +50,4 @@
             <x-confirmation-dialog></x-confirmation-dialog>
         </form>
     </div>
-
-    
-    
 </x-app-layout>
