@@ -9,17 +9,31 @@
         </div>
     </x-slot>
 
-    <div>
-        <label style="display:block;">
+    <div class="w-1/4 m-4 p-4 rounded-lg flex flex-col justify-center my-4 mx-auto border bg-white">
+        <label class="text-center mt-2 mb-2">
             Username: {{$employee->user->name}}
         </label>
 
-        <label style="display:block;">
+        <label class="text-center mb-2">
             Email: {{$employee->user->email}}
         </label>
 
-        <label style="display:block;">
-            Role: {{$employee->getRoleAttribute()}}
+        <label class="text-center mb-2">
+            Position: {{$employee->getPositionAttribute()}}
         </label>
+
+        <form class="flex w-full px-2 mt-4 justify-between" action={{action("App\Http\Controllers\EmployeeController@destroy", [$employee->id])}} method="POST">
+            @csrf
+            @method('DELETE')
+
+            @can('employees.edit')
+                <a class="w-20 my-2 text-base text-indigo-600 hover:text-indigo-900 font-semibold whitespace-nowrap text-sm font-medium" href="/employees/{{$employee->id}}/edit">Edit</a>
+            @endcan
+
+            @can('employees.destroy')
+                <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 text-right font-semibold whitespace-nowrap text-sm font-medium cursor-pointer" onclick="toggleModal('modal-id');">Delete</a>
+            @endcan
+            <x-confirmation-dialog></x-confirmation-dialog>
+        </form>
     </div>
 </x-app-layout>

@@ -4,71 +4,72 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Employees') }}
             </h2>
-            <x-button>
+
+            <x-link-button href="{{url('/employees/create')}}">
                 Add Employee
-            </x-button>
+            </x-link-button>
         </div>
     </x-slot>
 
-    <div class="flex flex-col">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    First Name
-                                </th>
+    <div class="flex flex-col w-full pt-2 px-2 mx-auto">
+        <table class="table-auto text-center divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-4 py-3 text-s font-medium tracking-widest text-gray-500 uppercase">
+                        First Name
+                    </th>
 
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Last Name
-                                </th>
+                    <th scope="col" class="px-4 py-3 text-xs font-medium tracking-widest text-gray-500 uppercase">
+                        Last Name
+                    </th>
 
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Username
-                                </th>
+                    <th scope="col" class="px-4 py-3 text-xs font-medium tracking-widest text-gray-500 uppercase">
+                        Username
+                    </th>
 
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Email
-                                </th>
-                            </tr>
-                        </thead>
+                    <th scope="col" class="px-4 py-3 text-xs font-medium tracking-widest text-gray-500 uppercase">
+                        Position
+                    </th>
 
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($employees as $employee)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center ml- text-sm font-medium text-gray-9004">
-                                        <a class="hover:border-gray-300" href="/employees/{{$employee->id}}">{{$employee->first_name}}</a>
-                                    </div>
-                                </td>
+                    <th scope="col" class="px-4 py-3 text-xs font-medium tracking-widest text-gray-500 uppercase">
+                        Email
+                    </th>
+                </tr>
+            </thead>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{$employee->last_name}}</div>
-                                </td>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($employees as $employee)
+                <tr>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <div class="flex items-center text-sm font-medium text-gray-900 justify-center">
+                            <a class="hover:border-gray-300" href="/employees/{{$employee->id}}">{{$employee->first_name}}</a>
+                        </div>
+                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{$employee->user->name}}
-                                    </span>
-                                </td>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">{{$employee->last_name}}</div>
+                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <div class="text-sm text-gray-900">
-                                        {{$employee->getRoleAttribute()}}
-                                    </div>
-                                </td>
+                    <td class="px-4 py-4 whitespace-nowrap">
+                        <span class="px-4 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            {{$employee->user->name}}
+                        </span>
+                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="text-sm text-gray-900">
+                            {{$employee->getPositionAttribute()}}
+                        </div>
+                    </td>
+
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="text-sm text-gray-900">
+                            {{$employee->user->email}}
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </x-app-layout>
