@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    public const ROLES = [
+    public const POSITIONS = [
         1 => 'waiter',
         2 => 'cashier',
         3 => 'manager',
@@ -17,19 +17,23 @@ class Employee extends Model
         'last_name',
     ];
 
-    public static function getRoleID($role) {
-        return array_search($role, self::ROLES);
+    public static function getPositionID($role) {
+        return array_search($role, self::POSITIONS);
     }
 
-    public function getRoleAttribute() {
-        return self::ROLES[ $this->attributes['employee_role_id'] ];
+    public function getPositionAttribute() {
+        return self::POSITIONS[ $this->attributes['employee_role_id'] ];
     }
 
-    public function setRoleAttribute($value) {
+    public function setPositionAttribute($value) {
         $roleID = self::getRoleID($value);
         if ($roleID) {
             $this->attributes['employee_role_id'] = $roleID;
         }
+    }
+
+    public static function allPositions() {
+        return self::POSITIONS;
     }
 
     public function user() {
