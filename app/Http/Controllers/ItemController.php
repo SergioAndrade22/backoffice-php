@@ -11,6 +11,11 @@ class ItemController extends Controller
 {
     public function __construct(){
         $this->middleware(['auth', 'verified']);
+        $this->middleware('can:items.index')->only('index');
+        $this->middleware('can:items.show')->only('show');
+        $this->middleware('can:items.create')->only('create');
+        $this->middleware('can:items.edit')->only('edit');
+        $this->middleware('can:items.destroy')->only('destroy');
     }
 
     /**

@@ -12,6 +12,11 @@ class EmployeeController extends Controller
 {
     public function __construct() {
         $this->middleware(['auth', 'verified']);
+        $this->middleware('can:employees.index')->only('index');
+        $this->middleware('can:employees.show')->only('show');
+        $this->middleware('can:employees.create')->only('create');
+        $this->middleware('can:employees.edit')->only('edit');
+        $this->middleware('can:employees.destroy')->only('destroy');
     }
     
     /**
@@ -34,7 +39,7 @@ class EmployeeController extends Controller
      */
     public function create() {
         try {
-            $users = User::all();
+            $users = User::doesntHave('roles')->get();
             return view('employee.create')->with('users', $users)->with('positions', Employee::allPositions());
         } catch (Exception) {
             return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
@@ -49,7 +54,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request) {
         $request->validate([
-            'employee_role_id' => 'required',
+            'position' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'user' => 'required',
@@ -57,7 +62,7 @@ class EmployeeController extends Controller
 
         try {
             $newEmployee = new Employee([
-                'employee_role_id' => $request->employee_rold_id,
+                'position' => $request->employee_position_id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
             ]);
@@ -68,7 +73,8 @@ class EmployeeController extends Controller
 
                 if ($user) {
                     $newEmployee->save();
-                    $newEmployee->username()->attach($user->id);
+                    $user->assignRole($newEmployee->getPositionAttribute());
+                    $newEmployee->user()->attach($user->id);
                     return redirect()->route('employees.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Employee', 'created'));
                 } else {
 
@@ -130,8 +136,8 @@ class EmployeeController extends Controller
             $oldEmployee = Employee::find($id);
     
             if ($oldEmployee) {
-                $employee_role_id = $request->employee_rold_id;
-                if ($employee_role_id) $oldEmployee->employee_role_id = $employee_role_id;
+                $position = $request->employee_rold_id;
+                if ($position) $oldEmployee->setPositionAttribute($position);
         
                 $first_name = $request->first_name;
                 if ($first_name) $oldEmployee->first_name = $first_name;

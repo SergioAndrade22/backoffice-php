@@ -17,6 +17,11 @@ class OrderController extends Controller
 
     public function __construct() {
         $this->middleware(['auth', 'verified']);
+        $this->middleware('can:orders.index')->only('index');
+        $this->middleware('can:orders.show')->only('show');
+        $this->middleware('can:orders.create')->only('create');
+        $this->middleware('can:orders.edit')->only('edit');
+        $this->middleware('can:orders.destroy')->only('destroy');
     }
     
     /**

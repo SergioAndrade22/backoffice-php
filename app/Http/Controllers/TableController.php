@@ -10,6 +10,11 @@ class TableController extends Controller
 {
     public function __construct(){
         $this->middleware(['auth', 'verified']);
+        $this->middleware('can:tables.index')->only('index');
+        $this->middleware('can:tables.show')->only('show');
+        $this->middleware('can:tables.create')->only('create');
+        $this->middleware('can:tables.edit')->only('edit');
+        $this->middleware('can:tables.destroy')->only('destroy');
     }
     
     /**
