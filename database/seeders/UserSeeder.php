@@ -55,5 +55,26 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('test')
         ))->assignRole('waiter');
+
+        User::create(array(
+            'email' => 'test@test.com',
+            'name' => 'test',
+            'email_verified_at' => now(),
+            'password' => bcrypt('test')
+        ));
+
+        User::create(array(
+            'email' => 'test1@test.com',
+            'name' => 'test1',
+            'email_verified_at' => now(),
+            'password' => bcrypt('test')
+        ));
+
+        User::create(array(
+            'email' => 'test2@test.com',
+            'name' => 'test2',
+            'email_verified_at' => now(),
+            'password' => bcrypt('test')
+        ));
     }
 }
