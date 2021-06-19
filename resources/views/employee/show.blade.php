@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __($employee->first_name." ".$employee->last_name ) }}
             </h2>
 
-            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight" :href="route('employees.index')">Back to list</x-nav-link>
+            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight underline justify-center xs:justify-start" :href="route('employees.index')">Back to list</x-nav-link>
         </div>
     </x-slot>
 
-    <div class="w-1/4 m-4 p-4 rounded-lg flex flex-col justify-center my-4 mx-auto border bg-white">
+    <div class="w-4/5 md:w-1/3 sm:w-1/2 xs:w-2/3 mx-auto my-4 p-4 rounded-lg flex flex-col justify-center border bg-white">
         <label class="text-center mt-2 mb-2">
             Username: {{$employee->user->name}}
         </label>

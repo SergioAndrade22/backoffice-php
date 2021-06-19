@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __("Employee Edition") }}
             </h2>
 
-            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight" :href="route('employees.index')">Back to list</x-nav-link>
+            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight underline justify-center xs:justify-start" :href="route('employees.index')">Back to list</x-nav-link>
         </div>
     </x-slot>
 
@@ -44,16 +44,12 @@
                         </select>
                       </div>
                 </div>
-
-                <div class="grid grid-cols-1">
-                    <label for="last_name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">FILLER</label>
-                </div>
             </div>
 
             <div class="flex justify-between items-center">
                 <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 text-right font-semibold whitespace-nowrap text-sm font-medium cursor-pointer" href="/employees/{{$employee->id}}">Cancel</a>
 
-                <button type="submit" class='w-auto m-4 bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Save changes</button>
+                <button type="submit" class='w-auto m-4 bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Accept</button>
             </div>      
         </div>
       </form>

@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Employees') }}
             </h2>
 
-            <x-link-button href="{{url('/employees/create')}}">
+            <x-link-button class="justify-center xs:justify-start" href="{{url('/employees/create')}}">
                 Add Employee
             </x-link-button>
         </div>
     </x-slot>
 
-    <div class="flex flex-col w-full pt-2 px-2 mx-auto">
+    <div class="flex flex-col w-full pt-2 px-2 mx-auto overflow-auto">
         <table class="table-auto text-center divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -42,7 +42,7 @@
                 <tr>
                     <td class="px-4 py-4 whitespace-nowrap">
                         <div class="flex items-center text-sm font-medium text-gray-900 justify-center">
-                            <a class="hover:border-gray-300" href="/employees/{{$employee->id}}">{{$employee->first_name}}</a>
+                            <a class="hover:border-gray-300 underline" href="/employees/{{$employee->id}}">{{$employee->first_name}}</a>
                         </div>
                     </td>
 
