@@ -72,4 +72,16 @@
             </tbody>
         </table>
     </div>
+
+    @if ($message = Session::get('success'))
+        <x-success-toast>
+            {{$message}}
+        </x-success-toast>
+    @endif
+
+    @if ($message = Session::get('error'))
+        <x-error-toast>
+            {{$message}}
+        </x-error-toast>
+    @endif
 </x-app-layout>

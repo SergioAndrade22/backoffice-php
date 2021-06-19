@@ -34,7 +34,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1 justify-items-center">
                     <div class="w-2/3 justify-center inline-flex">
-                        <select id="role" name="role" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                        <select id="position" name="position" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
                             <optgroup label="Select a Position">
                                 @foreach ($positions as $key => $value)
                                     <option class="uppercase" value="{{$key}}">{{strtoupper($value)}}</option>
