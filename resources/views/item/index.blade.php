@@ -1,16 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Items') }}
             </h2>
-            <x-link-button href="{{url('/items/create')}}">
+
+            <x-link-button class="justify-center xs:justify-start" href="{{url('/items/create')}}">
                 Add Item
             </x-link-button>
         </div>
     </x-slot>
 
-    <div class="grid grid-cols-1 gap-6 justify-center justify-items-center mt-4 md:mx-16 mx-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+    <div class="grid grid-cols-1 gap-6 justify-center justify-items-center mt-4 pb-2 md:mx-16 mx-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         @foreach ($items as $item)
         <a href="/items/{{$item->id}}">
             <div class="relative bg-white py-3 rounded-3xl w-64 shadow-xl text-center justify-center border border-purple-300 bg-white">

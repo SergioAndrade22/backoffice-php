@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __($item->name) }}
             </h2>
 
-            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight" :href="route('items.index')">Back to list</x-nav-link>
+            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight underline justify-center xs:justify-start" :href="route('items.index')">Back to list</x-nav-link>
         </div>
     </x-slot>
 

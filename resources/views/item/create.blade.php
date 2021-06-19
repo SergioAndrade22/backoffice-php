@@ -1,31 +1,30 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-full flex justify-between">
+        <div class="w-full flex justify-between flex-col xs:flex-row text-center xs:text-left">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __("Item creation") }}
             </h2>
 
-            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight" :href="route('items.index')">Back to list</x-nav-link>
+            <x-nav-link class="font-semibold text-xl text-gray-800 leading-tight underline justify-center xs:justify-start" :href="route('items.index')">Back to list</x-nav-link>
         </div>
     </x-slot>
 
     <form class="flex pt-8 h-screen items-start justify-center" action="/items" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
-      
-            <div class="flex justify-center mt-5">
+        <div class="grid bg-white rounded-lg shadow-xl w-full md:w-3/4 lg:w-1/2">
+            <div class="flex justify-center mt-2 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <div class="flex">
                     <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Item Data</h1>
                 </div>
             </div>
         
-            <div class="grid grid-cols-1 mt-5 mx-7">
+            <div class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <label for="name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
-                <input id="name" name="name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" />
+                <input id="name" name="name" class="w-full py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" />
             </div>
         
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <div class="grid grid-cols-1">
                     <label for="cuisine" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Cuisine</label>
                     <input id="cuisine" name="cuisine" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cuisine" aria-label="Item Cuisine" />
@@ -37,29 +36,29 @@
                 </div>
             </div>
 
-            <div id="radio-inputs" class="flex justify-between gap-2 mt-5 mx-7">
-                <label class="inline text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
+            <div id="radio-inputs" class="flex flex-col sm:flex-row justify-between sm:mt-5 p-2 sm:p-0 sm:mx-7">
+                <label class="inline my-1 sm:my-0 text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Is vegetarian?
                     <input type="checkbox" id="is_vege" name="is_vege" class="mr-2 text-purple-300 rounded"/>
                 </label>
 
-                <label class="inline text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
+                <label class="inline my-1 sm:my-0 text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Is vegan?
                     <input type="checkbox" id="is_vegan" name="is_vegan" class="mr-2 text-purple-300 rounded"/>
                 </label>
 
-                <label class="inline text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
+                <label class="inline my-1 sm:my-0 text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Is coeliac?
                     <input type="checkbox" id="is_coeliac" name="is_coeliac" class="mr-2 text-purple-300 rounded"/>
                 </label>
 
-                <label class="inline text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
+                <label class="inline my-1 sm:my-0 text-center uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Has alcohol?
                     <input type="checkbox" id="has_alcohol" name="has_alcohol" class="mr-2 text-purple-300 rounded"/>
                 </label>
             </div>
         
-            <div class="grid grid-cols-1 mt-5 mx-7">
+            <div class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Picture</label>
                 
                 <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
