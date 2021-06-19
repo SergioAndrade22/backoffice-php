@@ -61,25 +61,20 @@ class EmployeeController extends Controller
         ]);
 
         try {
+            $user = json_decode($request->user);
+
             $newEmployee = new Employee([
-                'position' => $request->employee_position_id,
+                'employee_position_id'=> $request->position,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
+                'user_id' => $user->id,
             ]);
-    
-            $user_name = $request->user_name;
-            if ($user_name) {
-                $user = User::find('name', $user_name);
 
-                if ($user) {
-                    $newEmployee->save();
-                    $user->assignRole($newEmployee->getPositionAttribute());
-                    $newEmployee->user()->attach($user->id);
-                    return redirect()->route('employees.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Employee', 'created'));
-                } else {
-
-                }
-            }
+            $newEmployee->save();
+               
+            User::find($user->id)->assignRole($newEmployee->getPositionAttribute());
+                
+            return redirect()->route('employees.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Employee', 'created'));
         } catch (Exception) {
             return redirect()->route('employees.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
@@ -171,7 +166,9 @@ class EmployeeController extends Controller
         try{
             $employee = Employee::find($id);
             if ($employee) {
+                $user_id = $employee->user_id;
                 $employee->delete();
+                User::find($user_id)->roles()->detach();
                 $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Employee', 'deleted');
             } else {
@@ -182,7 +179,6 @@ class EmployeeController extends Controller
             $result= ConstantMessages::errorResult;
             $message = ConstantMessages::internalErrorMessage;
         }
-
         return redirect()->route('employees.index')->with($result, $message);
     }
 }
