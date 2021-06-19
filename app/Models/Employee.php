@@ -15,6 +15,8 @@ class Employee extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'user_id',
+        'employee_position_id',
     ];
 
     public static function getPositionID($role) {
@@ -26,10 +28,7 @@ class Employee extends Model
     }
 
     public function setPositionAttribute($value) {
-        $roleID = self::getRoleID($value);
-        if ($roleID) {
-            $this->attributes['employee_position_id'] = $roleID;
-        }
+        $this->attributes['employee_position_id'] = $value;
     }
 
     public static function allPositions() {
