@@ -14,4 +14,10 @@
             </div>
         </div>
     </div>
+
+    @if ($message = Session::get('error'))
+        <x-error-toast>
+            {{$message}}
+        </x-error-toast>
+    @endif
 </x-app-layout>
