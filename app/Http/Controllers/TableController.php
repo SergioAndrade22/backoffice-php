@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use App\Models\ConstantMessages;
+use Exception;
 
 class TableController extends Controller
 {
@@ -23,7 +24,11 @@ class TableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('table.index')->with('tables', Table::all());
+        try{
+            return view('table.index')->with('tables', Table::all());
+        } catch (Exception) {
+            return view('dashboard')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -45,16 +50,20 @@ class TableController extends Controller
     {
         $request->validate([
             'people' => 'required',
+            'description' => 'required'
         ]);
 
-        $newTable = new Table;
-        $newTable->people = $request->people;
+        try{
+            $newTable = new Table([
+                'people' => $request->people,
+                'description' => $request->description,
+            ]);
+            $newTable->save();
 
-        $description = $request->description;
-        if ($description) $newTable->description = $description;
-
-        $newTable->save();
-        return redirect()->route('tables.index')->with('success', 'Table created succesfully');
+            return redirect()->route('tables.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'created'));
+        } catch(Exception) {
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -65,7 +74,16 @@ class TableController extends Controller
      */
     public function show($id)
     {
-        return view('table.show')->with('table', Table::find($id));
+        try {
+            $table = Table::find($id);
+            if ($table) {
+                return view('table.show')->with('table', $table);
+            } else {
+                return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+            }
+        } catch(Exception) {
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -76,7 +94,16 @@ class TableController extends Controller
      */
     public function edit($id)
     {
-        return view('table.edit')->with('table', Table::find($id));
+        try {
+            $table = Table::find($id);
+            if ($table) {
+                return view('table.edit')->with('table', $table);
+            } else {
+                return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+            }
+        } catch(Exception) {
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -87,17 +114,25 @@ class TableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $oldTable = Table::find($id);
+        $request->validate([
+            'people' => 'required',
+            'description' => 'required'
+        ]);
 
-        $people = $request->people;
-        if ($people) $oldTable->people = $people;
+        try {
+            $oldTable = Table::find($id);
+            if ($oldTable){
+                $oldTable->people = $request->people;
+                $oldTable->description = $request->description;
 
-        $description = $request->description;
-        if ($description) $oldTable->description = $description;
-
-        $oldTable->update();
-
-        return redirect()->route('tables.index')->with('success', 'Table saved succesfully');
+                $oldTable->save();
+                return redirect()->route('items.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'saved'));
+            } else {
+                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+            }
+        } catch(Exception) {
+            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 
     /**
@@ -107,8 +142,18 @@ class TableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Table::find($id)->delete();
-
-        return redirect()->route('tables.index')->with('success', 'Table deleted succesfully');
+        try {
+            $table = Table::find($id);
+            if ($table) {
+                $table->orders()->detach();
+                $table->delete();
+                
+                return redirect()->route('items.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'deleted'));
+            } else {
+                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+            }
+        } catch (Exception) {
+            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+        }
     }
 }
