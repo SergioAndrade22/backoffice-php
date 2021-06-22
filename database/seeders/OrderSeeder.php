@@ -18,6 +18,7 @@ class OrderSeeder extends Seeder
         for($i = 0; $i < 5; $i++) {
             Order::create(
                 array(
+                    'table_id' => rand(1, 9),
                     'total_cost' => rand(900, 2900),
                     'date' => Carbon::now()->subDays(rand(1,95)),
                 )
