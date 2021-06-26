@@ -58,7 +58,7 @@
                 </label>
             </div>
         
-            <div class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
+            <div id="picture_container" class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Upload Picture</label>
                 
                 <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
@@ -78,3 +78,10 @@
         </div>
       </form>
 </x-app-layout>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    $('#picture')[0].addEventListener('change', (event) => {
+        $('#picture_container')[0].append(`Succesfully uploaded!`);
+    });
+</script>
