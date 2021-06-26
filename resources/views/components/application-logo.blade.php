@@ -1,1 +1,1 @@
-<img src="{{asset('img/logo.png')}}" class="logo" alt="Family Size Logo" style="height: 4em;"/>
+<img src="{{asset('img/logo.png')}}" class="logo" alt="Family Size Logo"/>
