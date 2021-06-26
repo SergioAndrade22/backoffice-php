@@ -126,12 +126,12 @@ class TableController extends Controller
                 $oldTable->description = $request->description;
 
                 $oldTable->save();
-                return redirect()->route('items.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'saved'));
+                return redirect()->route('tables.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'saved'));
             } else {
-                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+                return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch(Exception) {
-            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 
@@ -148,12 +148,12 @@ class TableController extends Controller
                 $table->orders()->detach();
                 $table->delete();
                 
-                return redirect()->route('items.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'deleted'));
+                return redirect()->route('tables.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'deleted'));
             } else {
-                return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
+                return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch (Exception) {
-            return redirect()->route('items.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
         }
     }
 }
