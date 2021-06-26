@@ -182,6 +182,7 @@ class OrderController extends Controller
         try {
             $order = Order::find($id);
             if ($order) {
+                $order->items()->detach();
                 $order->delete();
                 $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Order', 'deleted');
