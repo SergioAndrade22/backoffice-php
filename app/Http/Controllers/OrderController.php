@@ -7,14 +7,11 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\Table;
 use App\Models\ConstantMessages;
+use Carbon\Carbon;
 use Exception;
 
 class OrderController extends Controller
 {
-    private function getIdFunction($item) {
-        return $item->id;
-    }
-
     public function __construct() {
         $this->middleware(['auth', 'verified']);
         $this->middleware('can:orders.index')->only('index');
@@ -62,20 +59,26 @@ class OrderController extends Controller
     public function store(Request $request) {
         $request->validate([
             'table_id' => 'required',
-            'total_cost' => 'required',
             'items' => 'required',
         ]);
-
         try {
             $newOrder = new Order([
-                'total_cost' => $request->total_cost,
+                'date' => Carbon::now(),
+                'table_id' => $request->table_id
             ]);
     
             $newOrder->save();
-    
-            $table = Table::where('id', $request->table_id)->get();
-            $newOrder->table()->attach($table->id);
-            $newOrder->items()->attach(array_map($this->geIdFunction, $request->items));
+
+            $totalCost = 0;
+            foreach($request->items as $item) {
+                $newOrder->items()->attach($item['id'], ['order_id'=> $newOrder->id, 'amount'=> $item['amount']]);
+                $totalCost += $item['cost'];
+            }
+
+            $newOrder->total_cost = $totalCost;
+
+            $newOrder->save();
+
             return redirect()->route('orders.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Order', 'created'));
         } catch (Exception) {
             return redirect()->route('orders.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
@@ -133,30 +136,28 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id) {
         try{
+            $request->validate([
+                'table_id' => 'required',
+                'items' => 'required',
+            ]);
+
             $oldOrder = Order::find($id);
     
             if ($oldOrder) {
-                $totalCost = $request->total_cost;
-                if ($totalCost) {
-                    $oldOrder->total_cost = $totalCost;
-                    $oldOrder->save();
+                $oldOrder->table_id = $request->table_id;
+        
+                $oldOrder->items()->detach();
+
+                $totalCost = 0;
+                foreach($request->items as $item) {
+                    $oldOrder->items()->attach($item['id'], ['order_id'=> $oldOrder->id, 'amount'=> $item['amount']]);
+                    $totalCost += $item['cost'];
                 }
-        
-                $tableId = $request->table_id;
-                if ($tableId){
-                    $table = Table::where('id', $tableId)->get();
-                    $oldOrder->table()->dettach($tableId);
-                    $oldOrder->table()->attach($table->id);
-                }
-        
-                $items = $request->items;
-                if ($items){
-                    $oldItemsIds = array_map($this->geIdFunction, $oldOrder->items()->get());
-                    $oldOrder->detach($oldItemsIds);
-        
-                    $newItemsIds = array_map($this->geIdFunction, $items);
-                    $oldOrder->attach($newItemsIds);
-                }        
+
+                $oldOrder->total_cost = $totalCost;
+
+                $oldOrder->save();
+
                 $result = ConstantMessages::successResult;
                 $message = ConstantMessages::successMessage('Order', 'saved');
             } else {
