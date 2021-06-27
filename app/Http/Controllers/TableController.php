@@ -145,7 +145,6 @@ class TableController extends Controller
         try {
             $table = Table::find($id);
             if ($table) {
-                $table->orders()->detach();
                 $table->delete();
                 
                 return redirect()->route('tables.index')->with(ConstantMessages::successResult, ConstantMessages::successMessage('Table', 'deleted'));
