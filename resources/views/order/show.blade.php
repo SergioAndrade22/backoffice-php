@@ -46,7 +46,7 @@
                 <a class="w-20 my-2 text-base text-indigo-600 hover:text-indigo-900 font-semibold whitespace-nowrap text-sm font-medium" href="/orders/{{$order->id}}/edit">Edit</a>
             @endcan
 
-            @can('orders.delete')
+            @can('orders.destroy')
                 <a class="w-20 my-2 text-base text-red-600 hover:text-red-900 text-right font-semibold whitespace-nowrap text-sm font-medium cursor-pointer" onclick="toggleModal('modal-id');">Delete</a>
             @endcan
             <x-confirmation-dialog></x-confirmation-dialog>
