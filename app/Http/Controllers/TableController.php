@@ -152,7 +152,7 @@ class TableController extends Controller
                 return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::invalidIdMessage);
             }
         } catch (Exception) {
-            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, ConstantMessages::internalErrorMessage);
+            return redirect()->route('tables.index')->with(ConstantMessages::errorResult, "Check if table has orders assigned before deleting or ".ConstantMessages::internalErrorMessage);
         }
     }
 }
