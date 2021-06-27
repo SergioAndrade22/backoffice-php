@@ -5,9 +5,11 @@
                 {{ __('Orders') }}
             </h2>
 
-            <x-link-button class="justify-center xs:justify-start" href="{{url('/orders/create')}}">
-                Add Order
-            </x-link-button>
+            @can('orders.create')
+                <x-link-button class="justify-center xs:justify-start" href="{{url('/orders/create')}}">
+                    Add Order
+                </x-link-button>
+            @endcan
         </div>
     </x-slot>
 
