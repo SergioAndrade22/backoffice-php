@@ -19,22 +19,24 @@
                 </div>
             </div>
         
+            <x-auth-validation-errors class="m-4" :errors="$errors" />
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1">
                     <label for="first_name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">First Name</label>
-                    <input id="first_name" name="first_name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="First Name" aria-label="Employee first name"/>
+                    <input id="first_name" name="first_name" value="{{old('first_name')}}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="First Name" aria-label="Employee first name" required/>
                 </div>
 
                 <div class="grid grid-cols-1">
                     <label for="last_name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last Name</label>
-                    <input id="last_name" name="last_name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Last Name" aria-label="Employee last name"/>
+                    <input id="last_name" name="last_name" value="{{old('last_name')}}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Last Name" aria-label="Employee last name" required/>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1 justify-items-center">
                     <div class="w-full xs:w-2/3 justify-center inline-flex">
-                        <select id="position" name="position" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                        <select id="position" name="position" value="{{old('position')}}" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" required>
                             <optgroup label="Select a Position">
                                 @foreach ($positions as $key => $value)
                                     <option class="uppercase" value="{{$key}}">{{strtoupper($value)}}</option>
@@ -46,7 +48,7 @@
 
                 <div class="grid grid-cols-1 justify-items-center">
                     <div class="w-full xs:w-2/3 justify-center inline-flex">
-                        <select id="user" name="user" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                        <select id="user" name="user" value="{{old('user')}}" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" required>
                             <optgroup label="Select a User">
                                 @foreach ($users as $user)
                                     <option class="uppercase" value="{{$user}}">{{strtoupper($user->name)}}</option>

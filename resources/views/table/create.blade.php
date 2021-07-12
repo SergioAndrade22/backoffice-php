@@ -19,14 +19,16 @@
                 </div>
             </div>
 
+            <x-auth-validation-errors class="m-4" :errors="$errors" />
+
             <div class="grid grid-cols-1 mt-5 mx-7">
                 <label for="people" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">People</label>
-                <input id="people" name="people" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="People" aria-label="Item People" />
+                <input id="people" name="people" value="{{old('people')}}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="People" aria-label="Item People" required/>
             </div>
 
             <div class="grid grid-cols-1 mt-5 mx-7">
                 <label for="description" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
-                <input id="description" name="description" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Description" aria-label="Item Description" />
+                <input id="description" name="description" value="{{old('description')}}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Description" aria-label="Item Description" required/>
             </div>
 
             <div class="flex justify-between items-center">

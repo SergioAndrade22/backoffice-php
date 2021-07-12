@@ -19,20 +19,22 @@
                 </div>
             </div>
         
+            <x-auth-validation-errors class="m-4" :errors="$errors" />
+
             <div class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <label for="name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
-                <input id="name" name="name" class="w-full py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" />
+                <input id="name" name="name" value="{{ old('name') }}" class="w-full py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" required/>
             </div>
         
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <div class="grid grid-cols-1">
                     <label for="cuisine" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Cuisine</label>
-                    <input id="cuisine" name="cuisine" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cuisine" aria-label="Item Cuisine" />
+                    <input id="cuisine" name="cuisine" value="{{ old('cuisine') }}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cuisine" aria-label="Item Cuisine" required/>
                 </div>
 
                 <div class="grid grid-cols-1">
                     <label for="cost" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Cost</label>
-                    <input id="cost" name="cost" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cost" aria-label="Item Cost" />
+                    <input id="cost" name="cost" value="{{ old('cost') }}" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="number" placeholder="Cost" aria-label="Item Cost" required/>
                 </div>
             </div>
 
@@ -68,7 +70,7 @@
                         <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Select a picture</p>
                     </div>
 
-                    <input id="picture" name="picture" type='file' accept="image/png, image/jpeg, image/jpg" class="hidden"/>
+                    <input id="picture" name="picture" type='file' value="{{old('picture')}}" accept="image/png, image/jpeg, image/jpg" class="hidden"/>
                 </label>
             </div>
         

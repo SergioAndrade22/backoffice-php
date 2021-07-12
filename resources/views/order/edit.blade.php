@@ -26,7 +26,7 @@
 
             <div class="grid grid-cols-1 justify-items-center mt-2">
                 <div class="w-7/8 xs:w-full px-2 justify-center inline-flex">
-                    <select id="table_id" name="table_id" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                    <select id="table_id" name="table_id" value="{{$order->table_id}}" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" required>
                         <optgroup label="Select a Table">
                             @foreach ($tables as $table)
                                 <option class="uppercase" value="{{$table->id}}"

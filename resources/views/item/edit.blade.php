@@ -20,20 +20,22 @@
                 </div>
             </div>
         
+            <x-auth-validation-errors class="m-4" :errors="$errors" />
+
             <div class="grid grid-cols-1 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <label for="name" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Name</label>
-                <input id="name" name="name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" value="{{$item->name}}" />
+                <input id="name" name="name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Name" aria-label="Item Name" value="{{$item->name}}" required/>
             </div>
         
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 sm:mt-5 p-2 sm:p-0 sm:mx-7">
                 <div class="grid grid-cols-1">
                     <label for="cuisine" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Cuisine</label>
-                    <input id="cuisine" name="cuisine" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cuisine" aria-label="Item Cuisine" value="{{$item->cuisine}}"/>
+                    <input id="cuisine" name="cuisine" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cuisine" aria-label="Item Cuisine" value="{{$item->cuisine}}" required/>
                 </div>
 
                 <div class="grid grid-cols-1">
                     <label for="cost" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Cost</label>
-                    <input id="cost" name="cost" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Cost" aria-label="Item Cost" value="{{$item->cost}}"/>
+                    <input id="cost" name="cost" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="number" placeholder="Cost" aria-label="Item Cost" value="{{$item->cost}}" required/>
                 </div>
             </div>
 

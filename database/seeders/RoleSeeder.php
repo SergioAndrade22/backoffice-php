@@ -20,8 +20,8 @@ class RoleSeeder extends Seeder
         $cashier = Role::create(['name'=>'cashier']);
         $manager = Role::create(['name'=>'manager']);
 
-        Permission::create(['name'=>'employees.index'])->syncRoles([$admin, $manager, $cashier, $waiter]);
-        Permission::create(['name'=>'employees.show'])->syncRoles([$admin, $manager, $cashier, $waiter]);
+        Permission::create(['name'=>'employees.index'])->syncRoles([$admin, $manager]);
+        Permission::create(['name'=>'employees.show'])->syncRoles([$admin, $manager]);
         Permission::create(['name'=>'employees.create'])->syncRoles([$admin, $manager]);
         Permission::create(['name'=>'employees.edit'])->syncRoles([$admin, $manager]);
         Permission::create(['name'=>'employees.destroy'])->syncRoles([$admin]);

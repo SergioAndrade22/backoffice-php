@@ -23,9 +23,11 @@
                 </div>
             </div>
 
+            <x-auth-validation-errors class="m-4" :errors="$errors" />
+
             <div class="grid grid-cols-1 justify-items-center mt-2">
                 <div class="w-7/8 xs:w-full px-2 justify-center inline-flex">
-                    <select id="table_id" name="table_id" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+                    <select id="table_id" name="table_id" value="{{old('table_id')}}" class="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" required>
                         <optgroup label="Select a Table">
                             @foreach ($tables as $table)
                                 <option class="uppercase" value="{{$table->id}}">{{$table->id.": ".strtoupper($table->description)}}</option>
@@ -58,6 +60,22 @@
                         </tr>
                     </thead>
                     <tbody id="item-container-body">
+                        @if (old('items'))
+                            @foreach(old('items') as $key=>$item)
+                                <tr id="{{$key.'-name'}}">
+                                    <td colspan="2" class="px-4 py-4 whitespace-nowrap text-left"><button class="rounded-full leading-3 p-1 text-center bg-red-400" type="button" onclick="remove('{{$key.'-name'}}')">-</button> <label>{{$key}}</label></td>
+                                    <td class="px-4 py-4 whitespace-nowrap"><input class="text-right outline-none" name="items[{{$item['id']}}][id]" value="{{$item['id']}}" readonly/></td>
+                                    <td class="text-right px-4 py-4 whitespace-nowrap"><input class="text-right outline-none" id="{{$key.'-name'.'-amount'}}" name="items[{{$item['id']}}][amount]" value="{{$item['amount']}}" readonly/></td>
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <div class="flex justify-between">
+                                            <button class="rounded-full leading-3 p-1 text-center bg-gray-100 outline-none" type="button" onclick="substractAmount('{{$key.'-name'}}', {{$item['cost']/$item['amount']}})">-</button>
+                                            <button class="rounded-full leading-3 p-1 text-center bg-gray-100 outline-none" type="button" onclick="addAmount('{{$key.'-name'}}', {{$item['cost']/$item['amount']}})">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="text-right px-4 py-4 whitespace-nowrap"><input class="text-right outline none" id="{{$key.'-name'.'-cost'}}" name="items[{{$item['id']}}][cost]" value="{{$item['cost']}}" readonly/></td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -82,6 +100,12 @@
         this.items = data;
         $('#autocomplete').autocomplete({
             source: data.map(item => item.name)
+        });
+        document.querySelectorAll('tbody>tr').forEach(tableRow => {
+            this.items.forEach(item => {
+                if (item.id == tableRow.id.split('-')[0])
+                    tableRow.firstElementChild.lastElementChild.innerText = item.name;
+            })
         });
     });
 
